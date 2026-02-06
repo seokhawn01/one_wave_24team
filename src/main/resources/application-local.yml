@@ -25,3 +25,5 @@ app:
     drop-legacy-main-tasks: false
   frontend:
     base-url: http://localhost:3000
+  api:
+    base-url: http://localhost:8080

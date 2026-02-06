@@ -24,6 +24,8 @@ app:
     drop-legacy-main-tasks: false
   frontend:
     base-url: http://15.164.97.176
+  api:
+    base-url: http://15.164.97.176
 
 springdoc:
   api-docs:
