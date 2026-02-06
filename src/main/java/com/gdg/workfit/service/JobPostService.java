@@ -35,6 +35,8 @@ public class JobPostService {
         jobPost.setEnterpriseId(enterpriseId);
         jobPost.setTitle(request.getTitle());
         jobPost.setDescription(request.getDescription());
+        jobPost.setEndDate(request.getEndDate());
+        jobPost.setEnterpriseIconUrl(request.getEnterpriseIconUrl());
         jobPost.setPrompt(prompt);
         jobPost.setStatus(JobPostStatus.OPEN);
         return jobPostRepository.save(jobPost);
@@ -44,6 +46,12 @@ public class JobPostService {
         JobPost jobPost = getOwnedJobPost(jobPostId, enterpriseId);
         jobPost.setTitle(request.getTitle());
         jobPost.setDescription(request.getDescription());
+        if (request.getEndDate() != null) {
+            jobPost.setEndDate(request.getEndDate());
+        }
+        if (request.getEnterpriseIconUrl() != null) {
+            jobPost.setEnterpriseIconUrl(request.getEnterpriseIconUrl());
+        }
         if (request.getStatus() != null) {
             jobPost.setStatus(request.getStatus());
         }

@@ -38,6 +38,8 @@ public class UserJobPostController {
                 jobPost.getTitle(),
                 jobPost.getDescription(),
                 jobPost.getStatus(),
+                jobPost.getEndDate(),
+                jobPost.getEnterpriseIconUrl(),
                 jobPost.getPrompt().getId(),
                 jobPost.getPrompt().getTitle(),
                 jobPost.getPrompt().getTimeLimitMinutes()

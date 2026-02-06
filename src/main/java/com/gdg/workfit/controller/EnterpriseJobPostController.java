@@ -68,6 +68,8 @@ public class EnterpriseJobPostController {
                 jobPost.getTitle(),
                 jobPost.getDescription(),
                 jobPost.getStatus(),
+                jobPost.getEndDate(),
+                jobPost.getEnterpriseIconUrl(),
                 jobPost.getPrompt().getId(),
                 jobPost.getPrompt().getTitle(),
                 jobPost.getPrompt().getTimeLimitMinutes()

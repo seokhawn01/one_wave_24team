@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,12 @@ public class JobPost {
 
     @Column(nullable = false, length = 4000)
     private String description;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
+
+    @Column(nullable = false, length = 1000)
+    private String enterpriseIconUrl;
 
     @ManyToOne
     @JoinColumn(name = "prompt_id", nullable = false)
