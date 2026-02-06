@@ -4,8 +4,10 @@ import com.gdg.workfit.domain.Submission;
 import com.gdg.workfit.domain.SubmissionResult;
 import com.gdg.workfit.domain.SubmissionScore;
 import com.gdg.workfit.dto.system.EvaluationDto;
+import com.gdg.workfit.repository.GlobalCriteriaRepository;
 import com.gdg.workfit.repository.SubmissionResultRepository;
 import com.gdg.workfit.repository.SubmissionScoreRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +17,16 @@ public class EvaluationService {
 
     private final SubmissionResultRepository submissionResultRepository;
     private final SubmissionScoreRepository submissionScoreRepository;
+    private final GlobalCriteriaRepository globalCriteriaRepository;
 
     public EvaluationService(
             SubmissionResultRepository submissionResultRepository,
-            SubmissionScoreRepository submissionScoreRepository
+            SubmissionScoreRepository submissionScoreRepository,
+            GlobalCriteriaRepository globalCriteriaRepository
     ) {
         this.submissionResultRepository = submissionResultRepository;
         this.submissionScoreRepository = submissionScoreRepository;
+        this.globalCriteriaRepository = globalCriteriaRepository;
     }
 
     public SubmissionResult evaluate(Submission submission) {
@@ -65,6 +70,38 @@ public class EvaluationService {
         );
     }
 
+    public EvaluationDto.Evaluation buildEvaluationFromCriteria(String answer, List<Criterion> criteria) {
+        if (criteria == null || criteria.isEmpty()) {
+            return buildEvaluation(answer);
+        }
+
+        int length = answer == null ? 0 : answer.trim().length();
+        int base = scoreByLength(length);
+
+        EvaluationDto.Item problemUnderstanding = itemFor("problem", criteria, base);
+        EvaluationDto.Item solutionLogic = itemFor("logic", criteria, base);
+        EvaluationDto.Item technicalFeasibility = itemFor("technical", criteria, base);
+        EvaluationDto.Item practicalApplicability = itemFor("practical", criteria, base);
+        EvaluationDto.Item communication = itemFor("communication", criteria, base);
+
+        return new EvaluationDto.Evaluation(
+                problemUnderstanding,
+                solutionLogic,
+                technicalFeasibility,
+                practicalApplicability,
+                communication
+        );
+    }
+
+    public List<Criterion> loadGlobalCriteria() {
+        return globalCriteriaRepository.findAll().stream()
+                .map(item -> new Criterion(item.getName(), item.getWeight()))
+                .toList();
+    }
+
+    public record Criterion(String name, Integer weight) {
+    }
+
     private int scoreByLength(int length) {
         if (length >= 400) {
             return 85;
@@ -97,5 +134,29 @@ public class EvaluationService {
             return true;
         }
         return totalScore >= 65 && logicScore >= 70;
+    }
+
+    private EvaluationDto.Item itemFor(String key, List<Criterion> criteria, int base) {
+        Criterion matched = criteria.stream()
+                .filter(c -> c.name() != null && c.name().toLowerCase().contains(key))
+                .findFirst()
+                .orElse(null);
+
+        int weight = matched != null && matched.weight() != null ? matched.weight() : 20;
+        int score = clamp(base + (weight - 20) / 2);
+        String comment = (matched != null && matched.name() != null)
+                ? matched.name() + " 기준으로 평가했습니다."
+                : "기준에 따라 평가했습니다.";
+        return new EvaluationDto.Item(score, comment);
+    }
+
+    private int clamp(int value) {
+        if (value < 0) {
+            return 0;
+        }
+        if (value > 100) {
+            return 100;
+        }
+        return value;
     }
 }
