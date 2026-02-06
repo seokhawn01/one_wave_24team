@@ -46,6 +46,9 @@ dependencies {
     // 6️⃣ 검증 (Request DTO @Valid)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // 6.1️⃣ Swagger (springdoc-openapi)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
+
     // 7️⃣ Lombok (개발 속도용)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
