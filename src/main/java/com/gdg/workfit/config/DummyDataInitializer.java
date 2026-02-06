@@ -5,7 +5,6 @@ import com.gdg.workfit.domain.JobPostStatus;
 import com.gdg.workfit.domain.Prompt;
 import com.gdg.workfit.repository.JobPostRepository;
 import com.gdg.workfit.repository.PromptRepository;
-import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +32,7 @@ public class DummyDataInitializer {
             jobPost.setDescription("Build APIs with Spring Boot. 3+ years experience preferred.");
             jobPost.setPrompt(prompt);
             jobPost.setStatus(JobPostStatus.OPEN);
-            jobPost.setEndDate(LocalDate.now().plusDays(14));
+            jobPost.setEndDay(20);
             jobPost.setEnterpriseIconUrl("https://example.com/images/demo-enterprise.png");
             jobPost.setEnterpriseAddress("123 Demo St, Suite 400, Seoul");
             jobPost.setResponsibilities("Develop and maintain REST APIs, collaborate with product and frontend teams, and improve system performance through profiling and optimization.");

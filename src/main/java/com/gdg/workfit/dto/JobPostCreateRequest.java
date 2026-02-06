@@ -2,7 +2,6 @@ package com.gdg.workfit.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,7 @@ public class JobPostCreateRequest {
     @NotNull
     private Long promptId;
     @NotNull
-    private LocalDate endDate;
+    private Integer endDay;
     @NotBlank
     private String enterpriseIconUrl;
     @NotBlank

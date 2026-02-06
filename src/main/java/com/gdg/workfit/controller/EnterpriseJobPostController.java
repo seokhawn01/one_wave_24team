@@ -68,7 +68,7 @@ public class EnterpriseJobPostController {
                 jobPost.getTitle(),
                 jobPost.getDescription(),
                 jobPost.getStatus(),
-                jobPost.getEndDate(),
+                jobPost.getEndDay(),
                 jobPost.getEnterpriseIconUrl(),
                 jobPost.getEnterpriseAddress(),
                 jobPost.getResponsibilities(),
