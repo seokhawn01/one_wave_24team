@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:h2:mem:workfit;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-this-secret-key-please-change-32bytes}
+    validity-seconds: ${JWT_VALIDITY_SECONDS:36000}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

@@ -10,7 +10,7 @@ description = 'WorkFit'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -34,6 +34,8 @@ dependencies {
 
     // 3️⃣ MySQL (RDS)
     runtimeOnly 'com.mysql:mysql-connector-j'
+    // Local dev DB
+    runtimeOnly 'com.h2database:h2'
 
     // 4️⃣ 보안 (JWT 쓸 거면 필수)
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -52,6 +54,9 @@ dependencies {
 
     // 8️⃣ 테스트 (빌드에서 제외해도 됨)
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 9 Swagger/OpenAPI
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4'
 }
 
 
