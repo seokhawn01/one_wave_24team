@@ -51,7 +51,8 @@ public class SubmissionService {
                 submission.getJobPost().getId(),
                 submission.getStatus(),
                 submission.getStartedAt(),
-                submission.getSubmittedAt()
+                submission.getSubmittedAt(),
+                null
         );
     }
 }

@@ -23,3 +23,5 @@ app:
   migration:
     enabled: true
     drop-legacy-main-tasks: false
+  frontend:
+    base-url: http://localhost:3000

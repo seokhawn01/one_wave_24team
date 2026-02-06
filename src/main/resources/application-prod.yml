@@ -22,3 +22,11 @@ app:
   migration:
     enabled: false
     drop-legacy-main-tasks: false
+  frontend:
+    base-url: http://15.164.97.176
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

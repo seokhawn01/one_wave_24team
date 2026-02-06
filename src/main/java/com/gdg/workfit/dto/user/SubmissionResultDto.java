@@ -12,7 +12,8 @@ public final class SubmissionResultDto {
             Boolean passed,
             Integer totalScore,
             String feedbackSummary,
-            List<ScoreItem> scores
+            List<ScoreItem> scores,
+            String redirectUrl
     ) {
     }
 

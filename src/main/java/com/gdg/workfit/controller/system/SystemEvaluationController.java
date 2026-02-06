@@ -2,7 +2,6 @@ package com.gdg.workfit.controller.system;
 
 import com.gdg.workfit.dto.enterprise.PromptDto;
 import com.gdg.workfit.dto.system.EvaluationDto;
-import com.gdg.workfit.repository.PromptCriteriaRepository;
 import com.gdg.workfit.service.EvaluationService;
 import com.gdg.workfit.service.SubmissionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,34 +21,34 @@ public class SystemEvaluationController {
 
     private final EvaluationService evaluationService;
     private final SubmissionService submissionService;
-    private final PromptCriteriaRepository promptCriteriaRepository;
 
     public SystemEvaluationController(
             EvaluationService evaluationService,
-            SubmissionService submissionService,
-            PromptCriteriaRepository promptCriteriaRepository
+            SubmissionService submissionService
     ) {
         this.evaluationService = evaluationService;
         this.submissionService = submissionService;
-        this.promptCriteriaRepository = promptCriteriaRepository;
     }
 
     @Operation(
             summary = "AI 평가 실행",
             description = """
                     기업 평가원 기준으로 submissionId를 평가해 JSON으로 반환합니다.
+                    - 입력은 /api/submissions/{submissionId}의 최종 제출 답변입니다.
                     - 스펙/학력/연차/자격증 언급 금지
-                    - 접근 방식과 사고 구조 중심 평가
-                    - 실무 적용 가능성 중심 판단
                     - 합격/불합격은 채용 가능성 기준
+                    - /api/system/evaluation-criteria/{promptId}의 기준을 반영해 평가합니다.
                     """
     )
     @PostMapping("/evaluate/{submissionId}")
     public EvaluationDto.EvaluateResponse evaluate(@PathVariable Long submissionId) {
         var submission = submissionService.get(submissionId);
         var result = evaluationService.evaluate(submission);
-        EvaluationDto.Evaluation evaluation = evaluationService.buildEvaluation(
-                submission.getFinalAnswer() != null ? submission.getFinalAnswer() : submission.getDraftAnswer()
+        var criteria = evaluationService.loadGlobalCriteria();
+
+        EvaluationDto.Evaluation evaluation = evaluationService.buildEvaluationFromCriteria(
+                submission.getFinalAnswer() != null ? submission.getFinalAnswer() : submission.getDraftAnswer(),
+                criteria
         );
 
         int totalScore = result.getTotalScore();
@@ -81,8 +80,8 @@ public class SystemEvaluationController {
     @Operation(summary = "평가 기준 조회", description = "프롬프트 생성 시 사용된 평가 항목을 조회합니다.")
     @GetMapping("/evaluation-criteria/{promptId}")
     public PromptDto.UpdateCriteriaRequest criteria(@PathVariable Long promptId) {
-        var items = promptCriteriaRepository.findByPromptId(promptId).stream()
-                .map(item -> new PromptDto.CriteriaItem(item.getName(), item.getWeight()))
+        var items = evaluationService.loadGlobalCriteria().stream()
+                .map(item -> new PromptDto.CriteriaItem(item.name(), item.weight()))
                 .collect(Collectors.toList());
         return new PromptDto.UpdateCriteriaRequest(items);
     }

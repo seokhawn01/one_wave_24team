@@ -31,7 +31,8 @@ public final class SubmissionDto {
             Long jobPostId,
             SubmissionStatus status,
             @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime startedAt,
-            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime submittedAt
+            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime submittedAt,
+            String redirectUrl
     ) {
     }
 }
