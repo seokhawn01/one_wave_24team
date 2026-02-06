@@ -19,4 +19,12 @@ public class JobPostCreateRequest {
     private LocalDate endDate;
     @NotBlank
     private String enterpriseIconUrl;
+    @NotBlank
+    private String enterpriseAddress;
+    @NotBlank
+    private String responsibilities;
+    @NotBlank
+    private String qualifications;
+    @NotBlank
+    private String difficulty;
 }

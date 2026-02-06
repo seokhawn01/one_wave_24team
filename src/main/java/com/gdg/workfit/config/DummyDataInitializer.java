@@ -35,6 +35,10 @@ public class DummyDataInitializer {
             jobPost.setStatus(JobPostStatus.OPEN);
             jobPost.setEndDate(LocalDate.now().plusDays(14));
             jobPost.setEnterpriseIconUrl("https://example.com/images/demo-enterprise.png");
+            jobPost.setEnterpriseAddress("123 Demo St, Suite 400, Seoul");
+            jobPost.setResponsibilities("Develop and maintain REST APIs, collaborate with product and frontend teams, and improve system performance through profiling and optimization.");
+            jobPost.setQualifications("3+ years of backend development experience, solid understanding of Spring Boot and JPA, and familiarity with SQL and RESTful API design.");
+            jobPost.setDifficulty("MID");
             jobPostRepository.save(jobPost);
         };
     }

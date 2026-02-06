@@ -16,4 +16,8 @@ public class JobPostUpdateRequest {
     private JobPostStatus status;
     private LocalDate endDate;
     private String enterpriseIconUrl;
+    private String enterpriseAddress;
+    private String responsibilities;
+    private String qualifications;
+    private String difficulty;
 }

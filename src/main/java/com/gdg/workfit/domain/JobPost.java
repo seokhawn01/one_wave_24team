@@ -44,6 +44,18 @@ public class JobPost {
     @Column(nullable = false, length = 1000)
     private String enterpriseIconUrl;
 
+    @Column(nullable = false, length = 500)
+    private String enterpriseAddress;
+
+    @Column(nullable = false, length = 4000)
+    private String responsibilities;
+
+    @Column(nullable = false, length = 4000)
+    private String qualifications;
+
+    @Column(nullable = false, length = 50)
+    private String difficulty;
+
     @ManyToOne
     @JoinColumn(name = "prompt_id", nullable = false)
     private Prompt prompt;

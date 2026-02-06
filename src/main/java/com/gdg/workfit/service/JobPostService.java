@@ -37,6 +37,10 @@ public class JobPostService {
         jobPost.setDescription(request.getDescription());
         jobPost.setEndDate(request.getEndDate());
         jobPost.setEnterpriseIconUrl(request.getEnterpriseIconUrl());
+        jobPost.setEnterpriseAddress(request.getEnterpriseAddress());
+        jobPost.setResponsibilities(request.getResponsibilities());
+        jobPost.setQualifications(request.getQualifications());
+        jobPost.setDifficulty(request.getDifficulty());
         jobPost.setPrompt(prompt);
         jobPost.setStatus(JobPostStatus.OPEN);
         return jobPostRepository.save(jobPost);
@@ -51,6 +55,18 @@ public class JobPostService {
         }
         if (request.getEnterpriseIconUrl() != null) {
             jobPost.setEnterpriseIconUrl(request.getEnterpriseIconUrl());
+        }
+        if (request.getEnterpriseAddress() != null) {
+            jobPost.setEnterpriseAddress(request.getEnterpriseAddress());
+        }
+        if (request.getResponsibilities() != null) {
+            jobPost.setResponsibilities(request.getResponsibilities());
+        }
+        if (request.getQualifications() != null) {
+            jobPost.setQualifications(request.getQualifications());
+        }
+        if (request.getDifficulty() != null) {
+            jobPost.setDifficulty(request.getDifficulty());
         }
         if (request.getStatus() != null) {
             jobPost.setStatus(request.getStatus());

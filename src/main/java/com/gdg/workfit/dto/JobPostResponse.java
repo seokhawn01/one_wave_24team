@@ -14,6 +14,10 @@ public class JobPostResponse {
     private final JobPostStatus status;
     private final LocalDate endDate;
     private final String enterpriseIconUrl;
+    private final String enterpriseAddress;
+    private final String responsibilities;
+    private final String qualifications;
+    private final String difficulty;
     private final Long promptId;
     private final String promptTitle;
     private final Integer timeLimitMinutes;
