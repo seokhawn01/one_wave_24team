@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.gdg'
+version = '0.0.1-SNAPSHOT'
+description = 'WorkFit'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // 1️⃣ 웹 서버 (REST API)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 2️⃣ JPA + Hibernate
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // 3️⃣ MySQL (RDS)
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // 4️⃣ 보안 (JWT 쓸 거면 필수)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 5️⃣ JWT (가볍고 검증된 조합)
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // 6️⃣ 검증 (Request DTO @Valid)
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 7️⃣ Lombok (개발 속도용)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 8️⃣ 테스트 (빌드에서 제외해도 됨)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
