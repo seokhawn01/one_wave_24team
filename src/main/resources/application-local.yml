@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: WorkFit
+  datasource:
+    url: jdbc:mysql://localhost:3306/workfit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+jwt:
+  secret: local-dev-secret-please-change
